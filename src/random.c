@@ -31,3 +31,15 @@ u16 Random2(void)
     gRng2Value = ISO_RANDOMIZE1(gRng2Value);
     return gRng2Value >> 16;
 }
+
+void SeedRng2ToPoint(u8* name, u16 distance)
+{
+    u32 seed;
+    u16 i;
+    seed = (name[0] << 24) + (name[1] << 16) + (name[2] << 8) + (name[3]);
+    seed ^= (name[4] << 24) + (name[5] << 16) + (name[6] << 8);
+    
+    gRng2Value = seed;
+    for (i = 0; i < distance; i++)
+        Random2();
+}
