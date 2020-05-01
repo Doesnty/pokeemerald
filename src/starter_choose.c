@@ -10,6 +10,7 @@
 #include "palette.h"
 #include "pokedex.h"
 #include "pokemon.h"
+#include "random.h"
 #include "scanline_effect.h"
 #include "sound.h"
 #include "sprite.h"
@@ -366,7 +367,8 @@ u16 GetStarterPokemon(u16 chosenStarterId)
 {
     if (chosenStarterId > STARTER_MON_COUNT)
         chosenStarterId = 0;
-    return sStarterMon[chosenStarterId];
+    SeedRng2ToPoint(gSaveBlock2Ptr->playerName, chosenStarterId);
+    return DetermineSpecies(sStarterMon[chosenStarterId], Random2());
 }
 
 static void VblankCB_StarterChoose(void)

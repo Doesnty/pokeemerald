@@ -458,7 +458,7 @@ static bool8 TryGenerateWildMon(const struct WildPokemonInfo *wildMonInfo, u16 h
             trueIndex += 5;
         if (area != WILD_AREA_ROCKS)
             trueIndex += 5;
-        SeedRng2ToPoint(gSaveBlock2Ptr->playerName, (24 * TRAINERS_COUNT) + (28 * headerId) + trueIndex);
+        SeedRng2ToPoint(gSaveBlock2Ptr->playerName, 256 + (24 * TRAINERS_COUNT) + (28 * headerId) + trueIndex);
         species = DetermineSpecies(species, Random2());
     }
 
