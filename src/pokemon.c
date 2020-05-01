@@ -2956,11 +2956,12 @@ void GiveBoxMonInitialMoveset(struct BoxPokemon *boxMon)
     }
 }
 
-u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove)
+u16 MonTryLearningNewMove2(struct Pokemon *mon, bool8 firstMove, bool8 evo)
 {
     u32 retVal = 0;
     u16 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
     u8 level = GetMonData(mon, MON_DATA_LEVEL, NULL);
+    u16 learnLvl;
 
     // since you can learn more than one move per level
     // the game needs to know whether you decided to
@@ -2969,8 +2970,8 @@ u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove)
     if (firstMove)
     {
         sLearningMoveTableID = 0;
-
-        while (gLevelUpLearnsets[species][sLearningMoveTableID].level != level)
+        learnLvl = gLevelUpLearnsets[species][sLearningMoveTableID].level;
+        while (!(learnLvl == level || (evo && learnLvl == 0)))
         {
             sLearningMoveTableID++;
             if (gLevelUpLearnsets[species][sLearningMoveTableID].move == LEVEL_UP_END)
@@ -2978,7 +2979,8 @@ u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove)
         }
     }
 
-    if (gLevelUpLearnsets[species][sLearningMoveTableID].level == level)
+    learnLvl = gLevelUpLearnsets[species][sLearningMoveTableID].level;
+    if (learnLvl == level || (evo && learnLvl == 0))
     {
         gMoveToLearn = gLevelUpLearnsets[species][sLearningMoveTableID].move;
         sLearningMoveTableID++;
@@ -2986,6 +2988,11 @@ u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove)
     }
 
     return retVal;
+}
+
+u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove)
+{
+    MonTryLearningNewMove2(mon, firstMove, 0);
 }
 
 void DeleteFirstMoveAndGiveMoveToMon(struct Pokemon *mon, u16 move)
