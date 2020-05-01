@@ -401,7 +401,6 @@ const struct TrainerMoney gTrainerMoneyTable[] =
 };
 
 #include "data/text/abilities.h"
-#include "data/randomizer_table.h"
 
 static void (* const sTurnActionsFuncsTable[])(void) =
 {
@@ -1854,15 +1853,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 personalityValue <<= 16;
                 personalityValue += Random2();
                 Random2();
-                speciesRoll = Random2();
-                species = partyData[i].species;
-                j = 0;
-                while (gRandomizerTable[species][j+1] < speciesRoll)
-                {
-                    speciesRoll -= gRandomizerTable[species][j+1];
-                    j += 2;
-                }
-                species = gRandomizerTable[species][j];
+                species = DetermineSpecies(partyData[i].species, Random2());
                 
                 fixedIV = partyData[i].iv * 31 / 255;
                 CreateMon(&party[i], species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
@@ -1876,15 +1867,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 personalityValue <<= 16;
                 personalityValue += Random2();
                 Random2();
-                speciesRoll = Random2();
-                species = partyData[i].species;
-                j = 0;
-                while (gRandomizerTable[species][j+1] < speciesRoll)
-                {
-                    speciesRoll -= gRandomizerTable[species][j+1];
-                    j += 2;
-                }
-                species = gRandomizerTable[species][j];
+                species = DetermineSpecies(partyData[i].species, Random2());
                 
                 fixedIV = partyData[i].iv * 31 / 255;
                 CreateMon(&party[i], species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
@@ -1898,15 +1881,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 personalityValue <<= 16;
                 personalityValue += Random2();
                 Random2();
-                speciesRoll = Random2();
-                species = partyData[i].species;
-                j = 0;
-                while (gRandomizerTable[species][j+1] < speciesRoll)
-                {
-                    speciesRoll -= gRandomizerTable[species][j+1];
-                    j += 2;
-                }
-                species = gRandomizerTable[species][j];
+                species = DetermineSpecies(partyData[i].species, Random2());
                 
                 fixedIV = partyData[i].iv * 31 / 255;
                 CreateMon(&party[i], species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);
@@ -1922,15 +1897,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
                 personalityValue <<= 16;
                 personalityValue += Random2();
                 Random2();
-                speciesRoll = Random2();
-                species = partyData[i].species;
-                j = 0;
-                while (gRandomizerTable[species][j+1] < speciesRoll)
-                {
-                    speciesRoll -= gRandomizerTable[species][j+1];
-                    j += 2;
-                }
-                species = gRandomizerTable[species][j];
+                species = DetermineSpecies(partyData[i].species, Random2());
                 
                 fixedIV = partyData[i].iv * 31 / 255;
                 CreateMon(&party[i], species, partyData[i].lvl, fixedIV, TRUE, personalityValue, OT_ID_RANDOM_NO_SHINY, 0);

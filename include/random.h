@@ -21,4 +21,6 @@ void SeedRng(u16 seed);
 void SeedRng2(u16 seed);
 void SeedRng2ToPoint(u8* seed, u16 distance);
 
+u16 DetermineSpecies(u16 originalSpecies, u16 rn);
+
 #endif // GUARD_RANDOM_H

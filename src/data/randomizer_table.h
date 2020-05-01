@@ -1,3 +1,5 @@
+#include "constants/species.h"
+
 const u16 gRandomizerTable[NUM_SPECIES][256] = 
 {
     [SPECIES_BULBASAUR] = 

@@ -43,3 +43,16 @@ void SeedRng2ToPoint(u8* name, u16 distance)
     for (i = 0; i < distance; i++)
         Random2();
 }
+
+#include "data/randomizer_table.h"
+
+u16 DetermineSpecies(u16 species, u16 rn)
+{
+    u16 i = 0;
+    while (gRandomizerTable[species][i+1] < rn)
+    {
+        rn -= gRandomizerTable[species][i+1];
+        i += 2;
+    }
+    return gRandomizerTable[species][i];
+}
