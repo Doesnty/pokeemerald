@@ -1832,7 +1832,7 @@ static u8 CreateNPCTrainerParty(struct Pokemon *party, u16 trainerNum, bool8 fir
             monsCount = gTrainers[trainerNum].partySize;
         }
 
-        SeedRng2ToPoint(gSaveBlock2Ptr->playerName, 256 + 24 * trainerNum);
+        SeedRng2ToPoint(gSaveBlock2Ptr->playerName, 50 + 256 + 24 * trainerNum);
         for (i = 0; i < monsCount; i++)
         {
 

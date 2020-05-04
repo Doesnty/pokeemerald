@@ -5822,20 +5822,7 @@ bool8 TryIncrementMonLevel(struct Pokemon *mon)
 u32 CanMonLearnTMHM(struct Pokemon *mon, u8 tm)
 {
     u16 species = GetMonData(mon, MON_DATA_SPECIES2, 0);
-    if (species == SPECIES_EGG)
-    {
-        return 0;
-    }
-    else if (tm < 32)
-    {
-        u32 mask = 1 << tm;
-        return gTMHMLearnsets[species][0] & mask;
-    }
-    else
-    {
-        u32 mask = 1 << (tm - 32);
-        return gTMHMLearnsets[species][1] & mask;
-    }
+    return CanSpeciesLearnTMHM(species, tm);
 }
 
 u32 CanSpeciesLearnTMHM(u16 species, u8 tm)
@@ -5844,15 +5831,22 @@ u32 CanSpeciesLearnTMHM(u16 species, u8 tm)
     {
         return 0;
     }
-    else if (tm < 32)
-    {
-        u32 mask = 1 << tm;
-        return gTMHMLearnsets[species][0] & mask;
-    }
     else
     {
-        u32 mask = 1 << (tm - 32);
-        return gTMHMLearnsets[species][1] & mask;
+        const u16* learnlist = gTMLearnsets[species];
+        u16 move = learnlist[0];
+        u16 i = 0;
+        u16 tmmove = ItemIdToBattleMoveId(tm + ITEM_TM01_FOCUS_PUNCH); //haaack
+        
+        
+        while (move != MOVE_NONE)
+        {
+            if (move == tmmove)
+                return 1;
+            i++;
+            move = learnlist[i];
+        }
+        return 0;
     }
 }
 

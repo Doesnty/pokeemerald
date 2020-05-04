@@ -48,6 +48,7 @@
 #include "pokemon_jump.h"
 #include "pokemon_storage_system.h"
 #include "pokemon_summary_screen.h"
+#include "random.h"
 #include "region_map.h"
 #include "reshow_battle_screen.h"
 #include "scanline_effect.h"
@@ -4615,7 +4616,13 @@ void ItemUseCB_PPUp(u8 taskId, TaskFunc task)
 u16 ItemIdToBattleMoveId(u16 item)
 {
     u16 tmNumber = item - ITEM_TM01_FOCUS_PUNCH;
-    return sTMHMMoves[tmNumber];
+    if (tmNumber > 50)
+        return sTMHMMoves[tmNumber];
+    else
+    {
+        SeedRng2ToPoint(gSaveBlock2Ptr->playerName, tmNumber);
+        return 1 + Random2() % (MOVES_COUNT - 1);
+    }
 }
 
 bool8 IsMoveHm(u16 move)
