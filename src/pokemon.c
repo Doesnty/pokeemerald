@@ -2976,6 +2976,7 @@ u16 MonTryLearningNewMove2(struct Pokemon *mon, bool8 firstMove, bool8 evo)
             sLearningMoveTableID++;
             if (gLevelUpLearnsets[species][sLearningMoveTableID].move == LEVEL_UP_END)
                 return 0;
+            learnLvl = gLevelUpLearnsets[species][sLearningMoveTableID].level;
         }
     }
 
@@ -2992,7 +2993,7 @@ u16 MonTryLearningNewMove2(struct Pokemon *mon, bool8 firstMove, bool8 evo)
 
 u16 MonTryLearningNewMove(struct Pokemon *mon, bool8 firstMove)
 {
-    MonTryLearningNewMove2(mon, firstMove, 0);
+    return MonTryLearningNewMove2(mon, firstMove, 0);
 }
 
 void DeleteFirstMoveAndGiveMoveToMon(struct Pokemon *mon, u16 move)
